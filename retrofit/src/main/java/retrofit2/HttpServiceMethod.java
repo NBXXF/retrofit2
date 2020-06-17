@@ -111,7 +111,7 @@ abstract class HttpServiceMethod<ResponseT, ReturnT> extends ServiceMethod<Retur
       Retrofit retrofit, Method method, Type returnType, Annotation[] annotations) {
     try {
       //noinspection unchecked
-      return (CallAdapter<ResponseT, ReturnT>) retrofit.callAdapter(returnType, annotations);
+      return (CallAdapter<ResponseT, ReturnT>) retrofit.callAdapter(method,returnType, annotations);
     } catch (RuntimeException e) { // Wide exception range because factories are user code.
       throw methodError(method, e, "Unable to create call adapter for %s", returnType);
     }

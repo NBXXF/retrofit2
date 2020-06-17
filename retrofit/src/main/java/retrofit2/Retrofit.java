@@ -233,8 +233,8 @@ public final class Retrofit {
    *
    * @throws IllegalArgumentException if no call adapter available for {@code type}.
    */
-  public CallAdapter<?, ?> callAdapter(Type returnType, Annotation[] annotations) {
-    return nextCallAdapter(null, returnType, annotations);
+  public CallAdapter<?, ?> callAdapter(Method method,Type returnType, Annotation[] annotations) {
+    return nextCallAdapter(null,method, returnType, annotations);
   }
 
   /**
@@ -244,13 +244,19 @@ public final class Retrofit {
    * @throws IllegalArgumentException if no call adapter available for {@code type}.
    */
   public CallAdapter<?, ?> nextCallAdapter(
-      @Nullable CallAdapter.Factory skipPast, Type returnType, Annotation[] annotations) {
+      @Nullable CallAdapter.Factory skipPast, Method method,Type returnType, Annotation[] annotations) {
     Objects.requireNonNull(returnType, "returnType == null");
     Objects.requireNonNull(annotations, "annotations == null");
 
     int start = callAdapterFactories.indexOf(skipPast) + 1;
     for (int i = start, count = callAdapterFactories.size(); i < count; i++) {
-      CallAdapter<?, ?> adapter = callAdapterFactories.get(i).get(returnType, annotations, this);
+      CallAdapter<?, ?> adapter = null;
+      if (callAdapterFactories.get(i) instanceof CallAdapter.Factory2) {
+        CallAdapter.Factory2 factory2 = (CallAdapter.Factory2) callAdapterFactories.get(i);
+        adapter = factory2.get(method, returnType, annotations, this);
+      } else {
+        adapter = callAdapterFactories.get(i).get(returnType, annotations, this);
+      }
       if (adapter != null) {
         return adapter;
       }
