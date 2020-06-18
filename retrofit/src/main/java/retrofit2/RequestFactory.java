@@ -817,7 +817,6 @@ final class RequestFactory {
 
                 return new ParameterHandler.Tag<>(tagType);
             } else if (annotation instanceof Cache) {
-                Cache Cache = (Cache) annotation;
                 return new ParameterHandler.Cache<>(method, p);
             }
 
