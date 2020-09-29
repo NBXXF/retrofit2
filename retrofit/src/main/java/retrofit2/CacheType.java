@@ -5,7 +5,7 @@ package retrofit2;
  * @version 2.3.1
  * @Description 网络缓存
  * @date createTime：2018/9/7
- *
+ * <p>
  * please link{@link retrofit2.http.Cache}
  */
 public enum CacheType {
@@ -30,4 +30,10 @@ public enum CacheType {
      * 如果本地存在就返回本地的,否则返回网络的数据
      */
     ifCache,
+
+    /**
+     * 读取上次的缓存,上次没有缓存就返回网络的数据,然后同步缓存;
+     * 上次有缓存,也会同步网络数据 但不会onNext
+     */
+    lastCache;
 }
