@@ -22,7 +22,7 @@ public enum CacheType {
      */
     onlyRemote,
     /**
-     * 只从本地缓存中拿取,没有缓存 会抛 {@link NullPointerException}
+     * 只从本地缓存中拿取,没有缓存 执行逻辑同Observable.empty()
      */
     onlyCache,
 
