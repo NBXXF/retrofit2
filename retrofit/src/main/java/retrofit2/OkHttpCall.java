@@ -39,7 +39,10 @@ final class OkHttpCall<T> implements Call<T> {
      */
     public final Object[] args;
     private final okhttp3.Call.Factory callFactory;
-    private final Converter<ResponseBody, T> responseConverter;
+    /**
+     * by youxuan  公开给框架扩展
+     */
+    public final Converter<ResponseBody, T> responseConverter;
 
     private volatile boolean canceled;
 
@@ -220,7 +223,7 @@ final class OkHttpCall<T> implements Call<T> {
         return call;
     }
 
-    public Response<T> parseResponse(okhttp3.Response rawResponse) throws IOException {
+    Response<T> parseResponse(okhttp3.Response rawResponse) throws IOException {
         ResponseBody rawBody = rawResponse.body();
 
         // Remove the body's source (the only stateful object) so we can pass the response along.
