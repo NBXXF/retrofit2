@@ -17,25 +17,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @version 2.3.1
  * @Description 网络缓存
  * @date createTime：2018/9/7
+ * 参数值参考:CacheType
  * please link{@link retrofit2.CacheType}
+ *
  * <p>
- * ！！！暂时不兼容@Header设置的max-age 后期考虑兼容
+ * ！！！暂时不兼容@Header设置的Cache-Control", "public, max-age=, 为不影响默认缓存(自定义key=cache), 后期考虑兼容
+ * 配合注解
+ * @Header("cache:20000") 实现缓存时效
+ * {@link Header}
  */
 @Documented
 @Target(PARAMETER)
 @Retention(RUNTIME)
 public @interface Cache {
-    /**
-     * 默认永久
-     *
-     * @return
-     */
-    long time() default Long.MAX_VALUE;
-
-    /**
-     * 默认单位为毫秒
-     *
-     * @return
-     */
-    TimeUnit timeUnit() default TimeUnit.MILLISECONDS;
 }
