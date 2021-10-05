@@ -11,6 +11,8 @@ package retrofit2;
 public enum CacheType {
     /**
      * 先从本地缓存拿取,然后从服务器拿取,可能会onNext两次,如果本地没有缓存 最少执行oNext一次
+     * rx系列请注意 concatDelayError 与concatEagerDelayError 请注意 一定要observeOn(xxx,true)
+     * 参考:https://github.com/ReactiveX/RxJava/issues/3908
      */
     firstCache,
     /**
@@ -34,6 +36,8 @@ public enum CacheType {
     /**
      * 读取上次的缓存,上次没有缓存就返回网络的数据,然后同步缓存;
      * 上次有缓存,也会同步网络数据 但不会onNext
+     * rx系列请注意 concatDelayError 与concatEagerDelayError 请注意 一定要observeOn(xxx,true)
+     * 参考:https://github.com/ReactiveX/RxJava/issues/3908
      */
     lastCache;
 }
